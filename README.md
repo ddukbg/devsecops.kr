@@ -10,6 +10,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트 |
 | --- | --- | --- | --- |
+| AWS SSM Agent CVE-2026-134069 | 구형 Windows AMI의 SSM 등록 키 공유, DHMC Role 탈취, 인플레이스 패치 무효 (키워드 `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
 | NFS2ROOT (CVE-2026-99362) | 리눅스 커널 `nfsd` 무인증 원격 루트, AWS·EKS 판별, 고정 커널 | [한국어](cve-2026-99362-nfs2root/README.md) · [English](cve-2026-99362-nfs2root/README_en.md) | [check_nfs2root.sh](cve-2026-99362-nfs2root/check_nfs2root.sh) |
 | Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE, NGINX HTTP/2 RCE, 발동 조건 점검 | [한국어](java4shell-nginx2shell/README.md) · [English](java4shell-nginx2shell/README_en.md) | [check_java_nginx_exposure.sh](java4shell-nginx2shell/check_java_nginx_exposure.sh) |
 | NGINX CVE-2026-132779 | TLS 1.3 `ssl_early_data` 워커 CPU 고갈, 1.31.10/1.30.8 | [한국어](nginx-cve-2026-132779/README.md) · [English](nginx-cve-2026-132779/README_en.md) | — |
@@ -31,6 +32,7 @@
 
 | 주제 | 내용 | 문서 |
 | --- | --- | --- |
+| 다나와 서비스 전면 중단 (2026-11-26) | 외부 침해 추정 사고로 웹·앱 15시간+ 중단, 확인·미확인 구분과 이용자·운영팀 체크리스트 (키워드 `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
 | 2026년 11월 국내 유출 정리 | 금융권 37곳·한전·삼성증권·KICC 등, 외부 접점 체크리스트 | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | 증권사 API 방어 룰북 | RFC 8693 인증변환, Redis HLL 레이트리밋, MyBatis `${}` 차단 | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
 | 가상자산 거래소 연쇄 침해 | 빗썸 15일 침입, 그룹웨어·외주·핫월렛 | [한국어](crypto-exchange-breaches/README.md) · [English](crypto-exchange-breaches/README_en.md) |
@@ -68,6 +70,12 @@ bash check_java_nginx_exposure.sh
 # PDF 비식별화 CI 게이트 (poppler-utils 필요)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/pdf-redaction-ci/check_pdf_redaction.sh
 bash check_pdf_redaction.sh document.pdf
+```
+
+```bash
+# AWS Windows AMI · SSM Agent · DHMC 노출 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh
+bash audit_ssm_windows_ami.sh
 ```
 
 ```bash
