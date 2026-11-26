@@ -251,12 +251,14 @@ scan_source() {
     printf 'SKIP|source|%s|디렉터리 없음|SKIP\n' "$dir" >>"$TMP"
     return
   fi
-  local pats pat hits total shown
+  local pats hits total shown
+  # url_validator_example.py 는 취약·안전 패턴을 교육용으로 함께 담고 있어 제외합니다.
   pats='path\.Clean|posixpath\.normpath|normpath\(|startswith\("/"\)'
   hits="$(grep -rnE "$pats" \
       --include='*.go' --include='*.py' --include='*.js' --include='*.ts' \
       --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules \
-      --exclude-dir=dist --exclude-dir=build "$dir" 2>/dev/null)"
+      --exclude-dir=dist --exclude-dir=build \
+      --exclude='url_validator_example.py' "$dir" 2>/dev/null)"
   total=0
   [ -n "$hits" ] && total="$(printf '%s\n' "$hits" | wc -l | tr -d ' ')"
   if [ "$total" -eq 0 ]; then
