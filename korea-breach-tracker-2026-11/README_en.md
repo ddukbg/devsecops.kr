@@ -110,6 +110,18 @@ Confirmed November volume exceeds **2.14 million records** (KEPCO 1.52M, Nonghyu
 - [ ] Re-check partner simple-payment and VAN API keys, webhook signatures, and IP allowlists
 - [ ] Warn merchants about **settlement-account-change phishing** using company name, CEO name, and MID
 
+### 4-5. Three rules for external entry points — ACT · ROT · LOG
+
+Three things this month's incidents keep pointing at.
+
+| Rule | What to do | How to judge it |
+| --- | --- | --- |
+| **ACT** | **Inventory every external entry point**, including domains, legacy systems, admin pages and back offices | Use certificate transparency and subdomain enumeration to find assets you forgot; remove DNS records of retired systems |
+| **ROT** | **Rotate keys, tokens and credentials on a schedule** | Rotate by issuing authority, then confirm in CloudTrail/audit logs that the old ones are unused; move CI to OIDC |
+| **LOG** | **Keep authentication logs for external entry points for 90+ days** | Log successes and failures, and wire bulk lookups, odd hours and overseas IPs into detection rules |
+
+> The three rules do not create new controls; they turn the assets, keys and logs you already have into **an inventory and a schedule**. Organizations that only build the inventory after a breach notice keep getting hit.
+
 ## 5. Common lessons
 
 1. **The core database held; the surroundings fell.** External vendors, attachments, legacy integrations and back offices are repeated entry points.
