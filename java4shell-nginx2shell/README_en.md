@@ -12,13 +12,14 @@ The OpenJDK vulnerability (Java4Shell) and the NGINX HTTP/2 vulnerability (NGINX
 | Target | OpenJDK 17–27 (x86-64) | NGINX 1.21.4–1.31.9, 1.30.x |
 | Trigger | **AVX-512 VBMI CPU** + external Base64 payload | **HTTP/2 enabled** + reverse proxy connection reuse |
 | Not affected | Java 8/11, ARM64 | HTTP/2 disabled |
-| Fixed | 17.0.21.1 / 21.0.13.1, etc. | 1.31.10 / 1.30.8 |
+| Fixed | 17.0.21.1 / 21.0.13.1 | 1.31.10 / 1.30.8 |
 
 ## 1. Java4Shell (CVE-2026-114938)
 
 - Occurs in the HotSpot Base64 intrinsic of OpenJDK **17–27**. On CPUs with x86-64 **AVX-512 VBMI**, an external Base64 payload can achieve RCE.
 - **Java 8/11 and ARM64 are not affected.** No public exploit was available at disclosure.
-- Versions fixed by the OpenJDK advisory (2026-11-17): `27.0.1.0.3`, `25.0.5.0.3`, `21.0.13.0.3`, `17.0.21.0.3`, `11.0.33`, `8u512`.
+- Versions listed as affected by the OpenJDK advisory (2026-11-17): `27.0.1.0.3`, `25.0.5.0.3`, `21.0.13.0.3`, `17.0.21.0.3`, `11.0.33`, `8u512`.
+- Fixed versions confirmed here: **17.0.21.1 / 21.0.13.1**. For the other branches, check the fixed-version list in the OpenJDK advisory.
 
 ### Severity matrix (CVEs patched together)
 
