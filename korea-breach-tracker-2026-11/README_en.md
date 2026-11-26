@@ -4,7 +4,7 @@
 
 This document collects breaches confirmed in Korea's finance, public, retail, and education sectors between late September and November 2026. What matters more than the size of each incident is **where the attacker got in**. The core account systems held; external vendors, VOC attachments, legacy integrations, and merchant/settlement endpoints were breached repeatedly.
 
-The 26 November additions (CJ Olive Young, Danawa, Suhyup Bank) and five overseas cases from the same period are in sections 2-1 and 2-2.
+The 26 November additions (CJ Olive Young, Danawa, Suhyup Bank), the Hotel Story repeat breach and the KEPCO data trade, and five overseas cases from the same period are in sections 2-1 and 2-2.
 
 > Compiled from press reports and regulator announcements; investigations may change the details. Verified as of 2026-11-27.
 
@@ -41,13 +41,15 @@ Source: FSC press release https://www.fsc.go.kr/no010107/88096 (2026-11-06)
 
 Confirmed November volume exceeds **2.14 million records** (KEPCO 1.52M, Nonghyup Noranwoosan 360K, Jeonju University 180K, POSTECH 45K, Daishin/Mirae 77K+, Inje University 24K, Kurly 10K+, Samsung Securities 8,241, KOMSCO 3,000+, MetaM→Coinone, FSS, Seoul Central District Court PDFs, Yebyeol Sonbo, etc.). CJ Olive Young's 2,406,338 internal member-number records are a different class of data and are not added to this total.
 
-### 2-1. Added on 26 November — back office, outage, suspected AI-driven attack
+### 2-1. Added on 26 November — back office, outage, repeat breach, data trade
 
 | Incident | Date | Scale | Entry point |
 | --- | --- | --- | --- |
 | CJ Olive Young back office | notice 11/26 (intrusion 11/23) | **790 people** personal data + **2,406,338** internal member-number records | Unauthorized external access to the back-office system |
 | Danawa (ConnectWave) | from 11/26 02:00 | leak **unconfirmed** | Suspected external compromise → web/app down 15+ hours |
 | Sh Suhyup Bank | reported to FSS 11/26 | **54** customers | Loan/credit/address lookups — brute-forced verification code suspected |
+| Hotel Story (booking solution) | 2nd breach 11/22 (confirmed 11/23) | **undisclosed** | Own system vulnerability — 27 days after the 10/26 breach |
+| KEPCO leaked data on sale | listing 11/23 (reported 11/26) | hacker claims **1.04M records** | Sold on a Telegram channel — **KRW 500 per record** |
 
 **CJ Olive Young** — an external party gained unauthorized access on 23 November. Names, emails, mobile numbers and birth dates of 639 employees, 106 partner-company staff and 45 customers (790 in total) were exposed, along with **2,406,338 internal member-number records** (2,344,549 member numbers alone; 61,789 with member number and access IP). Payment data and passwords were not exposed; the company says it isolated the system, revoked accounts and reported to the authorities. The practical lesson is the **back-office account and the internal identifier**, not the customer app. The checklist is in [`cj-oliveyoung-breach`](../cj-oliveyoung-breach/README_en.md).
 
@@ -56,6 +58,10 @@ Confirmed November volume exceeds **2.14 million records** (KEPCO 1.52M, Nonghyu
 **Sh Suhyup Bank** — on the afternoon of 26 November the bank confirmed that loan data, credit information and addresses of 54 customers had leaked and reported to the Financial Supervisory Service. Attackers made repeated connections with many resident registration numbers; the numbers alone were not enough, but they **guessed the additional verification service code by brute-forcing random values**. The source is believed to be an overseas IP and the path is under investigation. This makes Suhyup the **fifth** bank with confirmed customer data loss in the suspected AI-assisted campaign, after Shinhan, KB Kookmin, Hana and BNK Busan. It is separate from the 17 October Pukyong National University tuition-system incident (5,108 people).
 
 > Lesson from Suhyup: **resident number + a short numeric code** does not survive brute force. Put per-user attempt limits, failure delays and anomaly detection on the lookup API, and route bulk lookups through a separate approval flow.
+
+**Hotel Story** — a hotel booking-management vendor (PMS, channel manager, booking engine) suffered a **second breach on 22 November** through a vulnerability in its own system, 27 days after the first one on 26 October, and confirmed the leak on 23 November. The second round exposed booking records (name, mobile or proxy number, email, booking number, status, stay details) and booking-engine member accounts (name, phone, email). Anyone whose booking was processed through Hotel Story can be affected even without an account there, yet the company has not published the list of affected hotels and booking channels or the total number of records. The first breach came through exposed hotel account credentials; the second through the vendor's own vulnerability — password resets and access reviews did not remove the flaw itself. Stay records reveal travel and occupancy patterns, so fake cancellation or extra-payment messages quoting a real booking number deserve extra suspicion.
+
+**KEPCO leaked data on sale** — on 23 November a hacker listed KEPCO customer data for sale on a Telegram channel, and SBS reporters posing as buyers found the samples were from this breach. The seller claims to hold about **1.04 million records**, of which 200,000 include name, bank account, resident number, phone and address, at **KRW 500 per record**. KEPCO confirmed that the data on sale came from this attack. Material previously traded on the dark web has moved to a mainstream messenger, lowering the barrier for phishing and voice-phishing built on the leaked fields.
 
 ### 2-2. Five overseas cases in the same period — all started with credentials
 
@@ -128,6 +134,7 @@ Three things this month's incidents keep pointing at.
 2. **A valid token passes authentication even when abused.** Authorization and usage anomaly detection are required — and a resident number plus a short code does not survive brute force (Suhyup).
 3. **Breach numbers only grow.** KEPCO found 35,000 more people a month later. Do not treat the first announcement as final.
 4. **All five overseas cases started with credentials.** Unless repository permissions, CI trust conditions and static keys are reduced together, the same shape repeats.
+5. **Leaked data reaches a market after the notice.** Three days after KEPCO's announcement, its leaked records were on sale on Telegram at KRW 500 each. Run impersonation and phishing detection on the leaked fields and identifiers, and keep customer guidance running well past the incident's formal close.
 
 ## References
 
@@ -148,6 +155,10 @@ Three things this month's incidents keep pointing at.
 - ZDNet Korea — Danawa outage, cross-check: https://zdnet.co.kr/view/?no=20261126153610
 - Money Today — Suhyup Bank, 54 customers; fifth affected bank: https://www.mt.co.kr/finance/2026/11/26/2026112618003425503
 - Insight Korea — Suhyup Bank, second incident within a month: https://www.insightkorea.co.kr/news/articleView.html?idxno=259891
+- Daily Secu — Hotel Story second breach (11/22), booking-engine member data: https://www.dailysecu.com/news/articleView.html?idxno=209782
+- Daily Secu — Hotel Story first breach (10/26): https://www.dailysecu.com/news/articleView.html?idxno=209143
+- SBS — KEPCO leaked data traded on Telegram at KRW 500 per record: https://news.sbs.co.kr/news/endPage.do?news_id=N1008865831
+- KBS — KEPCO data on the dark web, bid information claimed: https://news.kbs.co.kr/news/pc/view/view.do?ncd=8720600
 
 ### Overseas cases
 
