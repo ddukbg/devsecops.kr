@@ -1,0 +1,33 @@
+{
+  "Version": "2012-10-17",
+  "Id": "agent-sandbox-pcr-bound-key",
+  "Statement": [
+    {
+      "Sid": "AllowDecryptOnlyForAttestedImage",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::123456789012:role/agent-sandbox-runner"
+      },
+      "Action": [
+        "kms:Decrypt",
+        "kms:GenerateDataKey"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "kms:RecipientAttestation:PCR0": "<PCR0_HEX_64_CHARS>",
+          "kms:RecipientAttestation:PCR8": "<PCR8_HEX_64_CHARS>"
+        }
+      }
+    },
+    {
+      "Sid": "AllowKeyAdministration",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::123456789012:role/kms-admin"
+      },
+      "Action": "kms:*",
+      "Resource": "*"
+    }
+  ]
+}
