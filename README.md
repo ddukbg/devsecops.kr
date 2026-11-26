@@ -10,6 +10,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트 |
 | --- | --- | --- | --- |
+| Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` 파싱 차이로 네임스페이스 격리 우회, 클러스터 전역 자원·타 네임스페이스 Secret 열람, 1.19.2 (키워드 `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
 | AWS SSM Agent CVE-2026-134069 | 구형 Windows AMI의 SSM 등록 키 공유, DHMC Role 탈취, 인플레이스 패치 무효 (키워드 `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
 | NFS2ROOT (CVE-2026-99362) | 리눅스 커널 `nfsd` 무인증 원격 루트, AWS·EKS 판별, 고정 커널 | [한국어](cve-2026-99362-nfs2root/README.md) · [English](cve-2026-99362-nfs2root/README_en.md) | [check_nfs2root.sh](cve-2026-99362-nfs2root/check_nfs2root.sh) |
 | Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE, NGINX HTTP/2 RCE, 발동 조건 점검 | [한국어](java4shell-nginx2shell/README.md) · [English](java4shell-nginx2shell/README_en.md) | [check_java_nginx_exposure.sh](java4shell-nginx2shell/check_java_nginx_exposure.sh) |
@@ -77,6 +78,12 @@ bash check_pdf_redaction.sh document.pdf
 # AWS Windows AMI · SSM Agent · DHMC 노출 점검 (읽기 전용)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh
 bash audit_ssm_windows_ami.sh
+```
+
+```bash
+# Kyverno 버전 · 네임스페이스 Policy apiCall 노출 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh
+bash check_kyverno_parser.sh --context prod
 ```
 
 ```bash
