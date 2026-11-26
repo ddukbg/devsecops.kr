@@ -6,6 +6,16 @@
 
 각 폴더는 같은 이름의 한국어 `README.md`와 영어 `README_en.md`로 구성됩니다. 보도·벤더 공지 기준으로 정리했고, 확인 기준일은 문서마다 표기했습니다. 패치 적용과 운영 판단은 소속 조직의 보안 정책을 따르세요.
 
+## 기술 원리 · 시각화
+
+취약점 한 건이 아니라 **왜 그렇게 뚫리는지**를 다룬 기술 시각화(릴스) 정리본입니다. 점검 스크립트·페이로드·예제 설정이 같이 들어 있습니다.
+
+| 주제 | 내용 | 문서 | 스크립트/예제 |
+| --- | --- | --- | --- |
+| SSRF · URL 파서 불일치 | `?` 하나로 검증기와 클라이언트가 다른 목적지를 본다, 우회 6종, IMDSv2 hop limit 1 (키워드 `SSRF`) | [한국어](ssrf-url-parser-visual/README.md) · [English](ssrf-url-parser-visual/README_en.md) | [safe_url_check.py](ssrf-url-parser-visual/safe_url_check.py) · [ssrf_payloads.txt](ssrf-url-parser-visual/ssrf_payloads.txt) |
+| SYN Flood · TCP 백로그 | SYN queue와 accept queue 구분, SYN cookie의 대가, 커널 카운터 진단 (키워드 `SYN`) | [한국어](syn-flood-tcp-backlog/README.md) · [English](syn-flood-tcp-backlog/README_en.md) | [check_syn_backlog.sh](syn-flood-tcp-backlog/check_syn_backlog.sh) |
+| GitHub OIDC vs 정적 키 | 무기한 AKIA 키와 15분~1시간 STS 자격증명, `sub`·`aud` 신뢰 정책, 전환·폐기 순서 (키워드 `OIDC`) | [한국어](github-oidc-vs-static-key/README.md) · [English](github-oidc-vs-static-key/README_en.md) | [oidc_workflow_example.yml](github-oidc-vs-static-key/oidc_workflow_example.yml) · [iam_trust_policy.json](github-oidc-vs-static-key/iam_trust_policy.json) |
+
 ## 취약점 · CVE 대응
 
 | 주제 | 내용 | 문서 | 스크립트 |
@@ -35,7 +45,7 @@
 | --- | --- | --- |
 | CJ올리브영 업무시스템 침해 (2026-11-26) | 업무망 계정 침해로 임직원·협력사·고객 790명 정보와 내부 관리용 회원번호 자료 240만 6,338건 유출, 결제정보·비밀번호는 비노출, 백오피스 접근통제 체크리스트 (키워드 `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
 | 다나와 서비스 전면 중단 (2026-11-26) | 외부 침해 추정 사고로 웹·앱 15시간+ 중단, 확인·미확인 구분과 이용자·운영팀 체크리스트 (키워드 `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
-| 2026년 11월 국내 유출 정리 | 금융권 37곳·한전·삼성증권·KICC 등, 외부 접점 체크리스트 | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
+| 2026년 11월 국내 유출 정리 | 금융권 37곳·한전·삼성증권·KICC·CJ올리브영·다나와·수협은행 등, 외부 접점 체크리스트 | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | 증권사 API 방어 룰북 | RFC 8693 인증변환, Redis HLL 레이트리밋, MyBatis `${}` 차단 | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
 | 가상자산 거래소 연쇄 침해 | 빗썸 15일 침입, 그룹웨어·외주·핫월렛 | [한국어](crypto-exchange-breaches/README.md) · [English](crypto-exchange-breaches/README_en.md) |
 
@@ -90,6 +100,18 @@ bash check_kyverno_parser.sh --context prod
 # GitHub · CI/CD 공급망 점검 (읽기 전용, gh CLI 로그인 필요)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/1password-github-breach/audit_github_cicd.sh
 bash audit_github_cicd.sh ORG/REPO
+```
+
+```bash
+# SYN queue · accept queue 점검 (읽기 전용, iproute2 필요)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/syn-flood-tcp-backlog/check_syn_backlog.sh
+bash check_syn_backlog.sh --csv > syn_audit.csv
+```
+
+```bash
+# SSRF 검증기 비교 (외부 요청 없음, 표준 라이브러리만)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ssrf-url-parser-visual/safe_url_check.py
+python3 safe_url_check.py
 ```
 
 > 이 저장소의 문서와 스크립트는 점검 보조용입니다. 스크립트는 읽기 전용이며 시스템을 변경하지 않습니다. 벤더 권고와 조직 정책을 함께 확인하세요.

@@ -1,0 +1,65 @@
+# .github/workflows/deploy-oidc.yml
+#
+# GitHub Actions OIDC → AWS 역할 위임 예시.
+# 정적 IAM 액세스 키(AKIA...)를 Secrets에 두지 않고, 실행마다 단기 자격증명을 받는다.
+#
+# 전제:
+#   1. AWS 계정에 OIDC 공급자 등록
+#      - Provider URL : https://token.actions.githubusercontent.com
+#      - Audience     : sts.amazonaws.com
+#   2. 위 공급자를 신뢰하는 IAM 역할 생성 + iam_trust_policy.json 으로 신뢰 정책 교체
+#   3. 이 워크플로의 리포지토리·브랜치가 신뢰 정책의 sub 조건과 일치
+#
+# 주의:
+#   - permissions: id-token: write 가 없으면 JWT 가 발급되지 않는다(조용히 실패하는 1순위 원인).
+#   - 서드파티 액션은 버전 태그 대신 커밋 SHA 로 고정하는 편이 안전하다(태그 이동 공격 방지).
+#   - aws-actions/configure-aws-credentials 는 v4 계열을 사용한다. 사내 표준이 있으면 그 버전을 따른다.
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 기본 권한을 최소로 두고, 필요한 job 에서만 id-token 을 연다.
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production        # environment 를 쓰면 sub 에 environment 클레임이 붙는다
+
+    permissions:
+      contents: read
+      id-token: write            # OIDC JWT 발급에 필수
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/gh-actions-deploy
+          aws-region: ap-northeast-2
+          role-session-name: gha-${{ github.run_id }}-${{ github.run_attempt }}
+          # 기본 1시간. 최소 15분(900), 최대 12시간(43200) — 역할의 MaxSessionDuration 이하.
+          role-duration-seconds: 1800
+          # audience 는 기본값이 sts.amazonaws.com 이다. 신뢰 정책의 aud 조건과 같아야 한다.
+          audience: sts.amazonaws.com
+
+      - name: Verify identity (실패하면 신뢰 정책의 sub 조건부터 확인)
+        run: |
+          set -euo pipefail
+          aws sts get-caller-identity
+          # AssumedRole 로 나와야 정상. IAMUser 가 보이면 정적 키가 남아 있다는 뜻이다.
+
+      - name: Deploy
+        run: |
+          set -euo pipefail
+          aws s3 sync ./dist "s3://my-artifact-bucket/releases/${GITHUB_SHA}/" --delete

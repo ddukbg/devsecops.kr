@@ -6,6 +6,16 @@ Resources and check scripts sent through DM by the Instagram DevSecOps magazine 
 
 Every folder has a Korean `README.md` and an English `README_en.md`. Content is based on press reports and vendor advisories, with the verification date noted in each document. Patch timing and operational decisions belong to your organization's security policy.
 
+## Technical fundamentals · visual explainers
+
+These come from the Reel series that explains **why** something breaks rather than covering a single incident, and each ships with a check script, payload list or example config.
+
+| Topic | Summary | Docs | Script / example |
+| --- | --- | --- | --- |
+| SSRF · URL parser differential | A single `?` makes the validator and the client see different destinations; six bypass variants; IMDSv2 hop limit 1 (keyword `SSRF`) | [한국어](ssrf-url-parser-visual/README.md) · [English](ssrf-url-parser-visual/README_en.md) | [safe_url_check.py](ssrf-url-parser-visual/safe_url_check.py) · [ssrf_payloads.txt](ssrf-url-parser-visual/ssrf_payloads.txt) |
+| SYN Flood · TCP backlog | SYN queue vs accept queue, what SYN cookies cost, diagnosing with kernel counters (keyword `SYN`) | [한국어](syn-flood-tcp-backlog/README.md) · [English](syn-flood-tcp-backlog/README_en.md) | [check_syn_backlog.sh](syn-flood-tcp-backlog/check_syn_backlog.sh) |
+| GitHub OIDC vs static keys | Indefinite `AKIA` keys vs 15 min–1 hour STS credentials, `sub`/`aud` trust policy, migration and retirement order (keyword `OIDC`) | [한국어](github-oidc-vs-static-key/README.md) · [English](github-oidc-vs-static-key/README_en.md) | [oidc_workflow_example.yml](github-oidc-vs-static-key/oidc_workflow_example.yml) · [iam_trust_policy.json](github-oidc-vs-static-key/iam_trust_policy.json) |
+
 ## Vulnerabilities · CVE response
 
 | Topic | Summary | Docs | Script |
@@ -35,7 +45,7 @@ Every folder has a Korean `README.md` and an English `README_en.md`. Content is 
 | --- | --- | --- |
 | CJ Olive Young back-office breach (2026-11-26) | Internal work-system account breached: data on 790 employees, partner staff and customers plus 2,406,338 internal member-number records; payment data and passwords untouched; back-office access-control checklist (keyword `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
 | Danawa full outage (2026-11-26) | Suspected external intrusion; web and app down 15+ hours; confirmed vs unconfirmed, user and operator checklists (keyword `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
-| Korean breaches, November 2026 | 37 financial companies, KEPCO, Samsung Securities, KICC; external entry-point checklist | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
+| Korean breaches, November 2026 | 37 financial companies, KEPCO, Samsung Securities, KICC, CJ Olive Young, Danawa, Suhyup Bank; external entry-point checklist | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | Securities API defense rulebook | RFC 8693 token exchange, Redis HLL rate limiting, MyBatis `${}` blocking | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
 | Crypto exchange breaches | Bithumb's 15-day intrusion; groupware, vendors, hot wallets | [한국어](crypto-exchange-breaches/README.md) · [English](crypto-exchange-breaches/README_en.md) |
 
@@ -90,6 +100,18 @@ bash check_kyverno_parser.sh --context prod
 # GitHub / CI-CD supply chain audit (read-only, needs gh CLI login)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/1password-github-breach/audit_github_cicd.sh
 bash audit_github_cicd.sh ORG/REPO
+```
+
+```bash
+# SYN queue / accept queue audit (read-only, needs iproute2)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/syn-flood-tcp-backlog/check_syn_backlog.sh
+bash check_syn_backlog.sh --csv > syn_audit.csv
+```
+
+```bash
+# SSRF validator comparison (no outbound requests, standard library only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ssrf-url-parser-visual/safe_url_check.py
+python3 safe_url_check.py
 ```
 
 > The documents and scripts here are aids for triage. The scripts are read-only and do not change the system. Check vendor advisories and your organization's policy as well.
