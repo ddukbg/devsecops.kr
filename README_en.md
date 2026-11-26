@@ -20,6 +20,7 @@ These come from the Reel series that explains **why** something breaks rather th
 
 | Topic | Summary | Docs | Script |
 | --- | --- | --- | --- |
+| Traefik semicolon path authorization bypass (CVE-2026-137481 · GHSA-cp28-5662-543f) | `sanitizePath` leaves `/..;x/` unresolved; when public and protected routers share a Java backend the auth middleware is skipped. Fixed in 2.11.62 / 3.7.18 / 3.8.0-rc.2, plus GitHub CLI 2.106.0 security fixes (keyword `TRAEFIK`) | [한국어](traefik-cve-2026-137481-gh-cli/README.md) · [English](traefik-cve-2026-137481-gh-cli/README_en.md) | [check_traefik_ghcli.sh](traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh) |
 | Kyverno apiCall URL parser differential (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` mismatch bypasses namespace isolation; cluster-scoped reads and Secrets in other namespaces; fixed in 1.19.2 (keyword `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
 | AWS SSM Agent CVE-2026-134069 | Shared SSM registration key on older Windows AMIs; DHMC role credential theft; in-place patch insufficient (keyword `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
 | NFS2ROOT (CVE-2026-99362) | Unauthenticated remote root in Linux kernel `nfsd`; AWS/EKS scope; fixed kernels | [한국어](cve-2026-99362-nfs2root/README.md) · [English](cve-2026-99362-nfs2root/README_en.md) | [check_nfs2root.sh](cve-2026-99362-nfs2root/check_nfs2root.sh) |
@@ -89,6 +90,12 @@ bash check_pdf_redaction.sh document.pdf
 # AWS Windows AMI / SSM Agent / DHMC exposure check (read-only)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh
 bash audit_ssm_windows_ami.sh
+```
+
+```bash
+# Traefik versions, access-log traces and gh CLI version (read-only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh
+bash check_traefik_ghcli.sh --context prod
 ```
 
 ```bash

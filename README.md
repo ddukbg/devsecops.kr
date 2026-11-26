@@ -20,6 +20,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트 |
 | --- | --- | --- | --- |
+| Traefik 세미콜론 경로 인증 우회 (CVE-2026-137481 · GHSA-cp28-5662-543f) | `sanitizePath`가 `/..;x/`를 남겨 공개·보호 라우터가 같은 Java 백엔드를 공유하면 인증 미들웨어 우회, 2.11.62/3.7.18/3.8.0-rc.2 + GitHub CLI 2.106.0 보안 7건 (키워드 `TRAEFIK`) | [한국어](traefik-cve-2026-137481-gh-cli/README.md) · [English](traefik-cve-2026-137481-gh-cli/README_en.md) | [check_traefik_ghcli.sh](traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh) |
 | Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` 파싱 차이로 네임스페이스 격리 우회, 클러스터 전역 자원·타 네임스페이스 Secret 열람, 1.19.2 (키워드 `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
 | AWS SSM Agent CVE-2026-134069 | 구형 Windows AMI의 SSM 등록 키 공유, DHMC Role 탈취, 인플레이스 패치 무효 (키워드 `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
 | NFS2ROOT (CVE-2026-99362) | 리눅스 커널 `nfsd` 무인증 원격 루트, AWS·EKS 판별, 고정 커널 | [한국어](cve-2026-99362-nfs2root/README.md) · [English](cve-2026-99362-nfs2root/README_en.md) | [check_nfs2root.sh](cve-2026-99362-nfs2root/check_nfs2root.sh) |
@@ -89,6 +90,12 @@ bash check_pdf_redaction.sh document.pdf
 # AWS Windows AMI · SSM Agent · DHMC 노출 점검 (읽기 전용)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh
 bash audit_ssm_windows_ami.sh
+```
+
+```bash
+# Traefik 버전 · access log 흔적 · gh CLI 버전 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh
+bash check_traefik_ghcli.sh --context prod
 ```
 
 ```bash
