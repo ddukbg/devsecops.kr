@@ -20,6 +20,7 @@ Every folder has a Korean `README.md` and an English `README_en.md`. Content is 
 
 | Topic | Summary | Docs | Script/config |
 | --- | --- | --- | --- |
+| 1Password GitHub incident (#18 · 2026-11-26) | Employee corporate GitHub account taken over → private source code, CI/CD, malicious backend code, customer metadata. Vaults and recovery keys untouched; four controls (keyword `1PASS`) | [한국어](1password-github-breach/README.md) · [English](1password-github-breach/README_en.md) | [audit_github_cicd.sh](1password-github-breach/audit_github_cicd.sh) |
 | Cloud secret exposure chain | Rackspace Spot, Radware, Azure APIM, Argo CD; IoCs and rotation order | [한국어](cloud-secrets-exposure/README.md) · [English](cloud-secrets-exposure/README_en.md) | — |
 | OpenRouter prompt theft | Limits of ZDR, upstream provider review, token rotation | [한국어](openrouter-prompt-theft/README.md) · [English](openrouter-prompt-theft/README_en.md) | — |
 | AWS local emulator | `aws/aws-emulator` IAM, KMS, telemetry constraints | [한국어](aws-emulator/README.md) · [English](aws-emulator/README_en.md) | — |
@@ -67,6 +68,12 @@ bash check_java_nginx_exposure.sh
 # PDF redaction CI gate (requires poppler-utils)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/pdf-redaction-ci/check_pdf_redaction.sh
 bash check_pdf_redaction.sh document.pdf
+```
+
+```bash
+# GitHub / CI-CD supply chain audit (read-only, needs gh CLI login)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/1password-github-breach/audit_github_cicd.sh
+bash audit_github_cicd.sh ORG/REPO
 ```
 
 > The documents and scripts here are aids for triage. The scripts are read-only and do not change the system. Check vendor advisories and your organization's policy as well.

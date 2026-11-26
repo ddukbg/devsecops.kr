@@ -20,6 +20,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트/설정 |
 | --- | --- | --- | --- |
+| 1Password GitHub 침해 (#18 · 2026-11-26) | 직원 기업 GitHub 계정 탈취 → 비공개 소스코드·CI/CD·백엔드 악성코드, 고객 메타데이터 유출. 볼트·복구 키는 비노출, 4대 통제 (키워드 `1PASS`) | [한국어](1password-github-breach/README.md) · [English](1password-github-breach/README_en.md) | [audit_github_cicd.sh](1password-github-breach/audit_github_cicd.sh) |
 | 클라우드 시크릿 연쇄 노출 | Rackspace Spot·Radware·Azure APIM·Argo CD, IoC와 키 로테이션 순서 | [한국어](cloud-secrets-exposure/README.md) · [English](cloud-secrets-exposure/README_en.md) | — |
 | OpenRouter 프롬프트 탈취 | ZDR의 한계, 업스트림 제공자 점검, 토큰 로테이션 | [한국어](openrouter-prompt-theft/README.md) · [English](openrouter-prompt-theft/README_en.md) | — |
 | AWS 로컬 에뮬레이터 | `aws/aws-emulator` IAM·KMS·텔레메트리 제약 | [한국어](aws-emulator/README.md) · [English](aws-emulator/README_en.md) | — |
@@ -67,6 +68,12 @@ bash check_java_nginx_exposure.sh
 # PDF 비식별화 CI 게이트 (poppler-utils 필요)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/pdf-redaction-ci/check_pdf_redaction.sh
 bash check_pdf_redaction.sh document.pdf
+```
+
+```bash
+# GitHub · CI/CD 공급망 점검 (읽기 전용, gh CLI 로그인 필요)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/1password-github-breach/audit_github_cicd.sh
+bash audit_github_cicd.sh ORG/REPO
 ```
 
 > 이 저장소의 문서와 스크립트는 점검 보조용입니다. 스크립트는 읽기 전용이며 시스템을 변경하지 않습니다. 벤더 권고와 조직 정책을 함께 확인하세요.
