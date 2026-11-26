@@ -20,6 +20,7 @@ These come from the Reel series that explains **why** something breaks rather th
 
 | Topic | Summary | Docs | Script |
 | --- | --- | --- | --- |
+| Jenkins Script Security sandbox escape via partially qualified `@Builder` (CVE-2026-136835 · SECURITY-4278) | A `@builder.Builder` spelling the September fix missed still let Groovy instantiate an arbitrary class at compile time; fixed in script-security `1436.1438.v3dc5ef7d16f2` (core 2.479.3+), same advisory as workflow-cps and warnings-ng (keyword `JENKINS`) | [한국어](jenkins-script-security-cve-2026-136835/README.md) · [English](jenkins-script-security-cve-2026-136835/README_en.md) | [check_jenkins_script_security.sh](jenkins-script-security-cve-2026-136835/check_jenkins_script_security.sh) |
 | Traefik semicolon path authorization bypass (CVE-2026-137481 · GHSA-cp28-5662-543f) | `sanitizePath` leaves `/..;x/` unresolved; when public and protected routers share a Java backend the auth middleware is skipped. Fixed in 2.11.62 / 3.7.18 / 3.8.0-rc.2, plus GitHub CLI 2.106.0 security fixes (keyword `TRAEFIK`) | [한국어](traefik-cve-2026-137481-gh-cli/README.md) · [English](traefik-cve-2026-137481-gh-cli/README_en.md) | [check_traefik_ghcli.sh](traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh) |
 | Kyverno apiCall URL parser differential (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` mismatch bypasses namespace isolation; cluster-scoped reads and Secrets in other namespaces; fixed in 1.19.2 (keyword `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
 | AWS SSM Agent CVE-2026-134069 | Shared SSM registration key on older Windows AMIs; DHMC role credential theft; in-place patch insufficient (keyword `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
@@ -126,6 +127,12 @@ python3 safe_url_check.py
 # AI agent access audit: Workspace REST calls and Envoy proxy posture (read-only)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh
 bash check_agent_gateway_usage.sh --dir .
+```
+
+```bash
+# Jenkins Script Security sandbox escape (CVE-2026-136835) exposure check (read-only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/jenkins-script-security-cve-2026-136835/check_jenkins_script_security.sh
+bash check_jenkins_script_security.sh --url "$JENKINS_URL" --user bot --token "$TOKEN" --jenkins-home /var/lib/jenkins
 ```
 
 > The documents and scripts here are aids for triage. The scripts are read-only and do not change the system. Check vendor advisories and your organization's policy as well.

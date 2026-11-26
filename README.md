@@ -20,6 +20,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트 |
 | --- | --- | --- | --- |
+| Jenkins Script Security `@Builder` 부분 수식명 샌드박스 탈출 (CVE-2026-136835 · SECURITY-4278) | 9월 수정이 놓친 `@builder.Builder` 표기로 컴파일 타임에 임의 클래스 생성자 실행, script-security `1436.1438.v3dc5ef7d16f2`·코어 2.479.3+, 같은 권고 workflow-cps·warnings-ng 포함 (키워드 `JENKINS`) | [한국어](jenkins-script-security-cve-2026-136835/README.md) · [English](jenkins-script-security-cve-2026-136835/README_en.md) | [check_jenkins_script_security.sh](jenkins-script-security-cve-2026-136835/check_jenkins_script_security.sh) |
 | Traefik 세미콜론 경로 인증 우회 (CVE-2026-137481 · GHSA-cp28-5662-543f) | `sanitizePath`가 `/..;x/`를 남겨 공개·보호 라우터가 같은 Java 백엔드를 공유하면 인증 미들웨어 우회, 2.11.62/3.7.18/3.8.0-rc.2 + GitHub CLI 2.106.0 보안 7건 (키워드 `TRAEFIK`) | [한국어](traefik-cve-2026-137481-gh-cli/README.md) · [English](traefik-cve-2026-137481-gh-cli/README_en.md) | [check_traefik_ghcli.sh](traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh) |
 | Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` 파싱 차이로 네임스페이스 격리 우회, 클러스터 전역 자원·타 네임스페이스 Secret 열람, 1.19.2 (키워드 `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
 | AWS SSM Agent CVE-2026-134069 | 구형 Windows AMI의 SSM 등록 키 공유, DHMC Role 탈취, 인플레이스 패치 무효 (키워드 `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
@@ -126,6 +127,12 @@ python3 safe_url_check.py
 # AI 에이전트의 Workspace REST 직결 · Envoy 프록시 구성 점검 (읽기 전용)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh
 bash check_agent_gateway_usage.sh --dir .
+```
+
+```bash
+# Jenkins Script Security 샌드박스 탈출(CVE-2026-136835) 노출 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/jenkins-script-security-cve-2026-136835/check_jenkins_script_security.sh
+bash check_jenkins_script_security.sh --url "$JENKINS_URL" --user bot --token "$TOKEN" --jenkins-home /var/lib/jenkins
 ```
 
 > 이 저장소의 문서와 스크립트는 점검 보조용입니다. 스크립트는 읽기 전용이며 시스템을 변경하지 않습니다. 벤더 권고와 조직 정책을 함께 확인하세요.
