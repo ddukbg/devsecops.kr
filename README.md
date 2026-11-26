@@ -32,6 +32,7 @@
 
 | 주제 | 내용 | 문서 |
 | --- | --- | --- |
+| CJ올리브영 업무시스템 침해 (2026-11-26) | 업무망 계정 침해로 임직원·협력사·고객 790명 정보와 내부 관리용 회원번호 자료 240만 6,338건 유출, 결제정보·비밀번호는 비노출, 백오피스 접근통제 체크리스트 (키워드 `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
 | 다나와 서비스 전면 중단 (2026-11-26) | 외부 침해 추정 사고로 웹·앱 15시간+ 중단, 확인·미확인 구분과 이용자·운영팀 체크리스트 (키워드 `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
 | 2026년 11월 국내 유출 정리 | 금융권 37곳·한전·삼성증권·KICC 등, 외부 접점 체크리스트 | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | 증권사 API 방어 룰북 | RFC 8693 인증변환, Redis HLL 레이트리밋, MyBatis `${}` 차단 | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |

@@ -32,6 +32,7 @@ Every folder has a Korean `README.md` and an English `README_en.md`. Content is 
 
 | Topic | Summary | Docs |
 | --- | --- | --- |
+| CJ Olive Young back-office breach (2026-11-26) | Internal work-system account breached: data on 790 employees, partner staff and customers plus 2,406,338 internal member-number records; payment data and passwords untouched; back-office access-control checklist (keyword `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
 | Danawa full outage (2026-11-26) | Suspected external intrusion; web and app down 15+ hours; confirmed vs unconfirmed, user and operator checklists (keyword `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
 | Korean breaches, November 2026 | 37 financial companies, KEPCO, Samsung Securities, KICC; external entry-point checklist | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | Securities API defense rulebook | RFC 8693 token exchange, Redis HLL rate limiting, MyBatis `${}` blocking | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
