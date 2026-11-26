@@ -32,6 +32,7 @@
 
 | 주제 | 내용 | 문서 | 스크립트/설정 |
 | --- | --- | --- | --- |
+| AI 에이전트 게이트웨이 (#21 · 2026-11-27) | Google Workspace MCP/CLI 의무화(2027-02-01, 5,000건/일) + AWS ELB for Envoy GA(14개 리전, 서울 없음). Agent Registry·ELB 점검 체크리스트 (키워드 `MCP`) | [한국어](ai-agent-mcp-envoy-gateway/README.md) · [English](ai-agent-mcp-envoy-gateway/README_en.md) | [check_agent_gateway_usage.sh](ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh) · [체크리스트](ai-agent-mcp-envoy-gateway/agent-registry-elb-checklist.md) |
 | 1Password GitHub 침해 (#18 · 2026-11-26) | 직원 기업 GitHub 계정 탈취 → 비공개 소스코드·CI/CD·백엔드 악성코드, 고객 메타데이터 유출. 볼트·복구 키는 비노출, 4대 통제 (키워드 `1PASS`) | [한국어](1password-github-breach/README.md) · [English](1password-github-breach/README_en.md) | [audit_github_cicd.sh](1password-github-breach/audit_github_cicd.sh) |
 | 클라우드 시크릿 연쇄 노출 | Rackspace Spot·Radware·Azure APIM·Argo CD, IoC와 키 로테이션 순서 | [한국어](cloud-secrets-exposure/README.md) · [English](cloud-secrets-exposure/README_en.md) | — |
 | OpenRouter 프롬프트 탈취 | ZDR의 한계, 업스트림 제공자 점검, 토큰 로테이션 | [한국어](openrouter-prompt-theft/README.md) · [English](openrouter-prompt-theft/README_en.md) | — |
@@ -112,6 +113,12 @@ bash check_syn_backlog.sh --csv > syn_audit.csv
 # SSRF 검증기 비교 (외부 요청 없음, 표준 라이브러리만)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ssrf-url-parser-visual/safe_url_check.py
 python3 safe_url_check.py
+```
+
+```bash
+# AI 에이전트의 Workspace REST 직결 · Envoy 프록시 구성 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh
+bash check_agent_gateway_usage.sh --dir .
 ```
 
 > 이 저장소의 문서와 스크립트는 점검 보조용입니다. 스크립트는 읽기 전용이며 시스템을 변경하지 않습니다. 벤더 권고와 조직 정책을 함께 확인하세요.

@@ -32,6 +32,7 @@ These come from the Reel series that explains **why** something breaks rather th
 
 | Topic | Summary | Docs | Script/config |
 | --- | --- | --- | --- |
+| AI agent gateways (#21 · 2026-11-27) | Google Workspace MCP/CLI mandate (2027-02-01, 5,000/day) + AWS ELB for Envoy GA (14 Regions, no Seoul). Agent Registry and ELB checklists (keyword `MCP`) | [한국어](ai-agent-mcp-envoy-gateway/README.md) · [English](ai-agent-mcp-envoy-gateway/README_en.md) | [check_agent_gateway_usage.sh](ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh) · [checklist](ai-agent-mcp-envoy-gateway/agent-registry-elb-checklist.md) |
 | 1Password GitHub incident (#18 · 2026-11-26) | Employee corporate GitHub account taken over → private source code, CI/CD, malicious backend code, customer metadata. Vaults and recovery keys untouched; four controls (keyword `1PASS`) | [한국어](1password-github-breach/README.md) · [English](1password-github-breach/README_en.md) | [audit_github_cicd.sh](1password-github-breach/audit_github_cicd.sh) |
 | Cloud secret exposure chain | Rackspace Spot, Radware, Azure APIM, Argo CD; IoCs and rotation order | [한국어](cloud-secrets-exposure/README.md) · [English](cloud-secrets-exposure/README_en.md) | — |
 | OpenRouter prompt theft | Limits of ZDR, upstream provider review, token rotation | [한국어](openrouter-prompt-theft/README.md) · [English](openrouter-prompt-theft/README_en.md) | — |
@@ -112,6 +113,12 @@ bash check_syn_backlog.sh --csv > syn_audit.csv
 # SSRF validator comparison (no outbound requests, standard library only)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ssrf-url-parser-visual/safe_url_check.py
 python3 safe_url_check.py
+```
+
+```bash
+# AI agent access audit: Workspace REST calls and Envoy proxy posture (read-only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh
+bash check_agent_gateway_usage.sh --dir .
 ```
 
 > The documents and scripts here are aids for triage. The scripts are read-only and do not change the system. Check vendor advisories and your organization's policy as well.
