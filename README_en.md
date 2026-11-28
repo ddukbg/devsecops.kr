@@ -2,75 +2,107 @@
 
 [한국어](README.md) | [English](README_en.md)
 
-Resources and check scripts sent through DM by the Instagram DevSecOps magazine [@decsecops.kr](https://www.instagram.com/decsecops.kr/). Links received in DM point to files in this repository.
+Resources and check scripts sent through DM by the Instagram DevSecOps magazine [@devsecops.kr](https://www.instagram.com/devsecops.kr/). Links received in DM point to files in this repository.
 
-Every folder has a Korean `README.md` and an English `README_en.md`. Content is based on press reports and vendor advisories, with the verification date noted in each document. Patch timing and operational decisions belong to your organization's security policy.
+Folders are grouped into topic collections. Pick a topic below; every folder has a Korean `README.md` and an English `README_en.md`. Content is based on press reports and vendor advisories, with the verification date noted in each document. Patch timing and operational decisions belong to your organization's security policy.
 
-## Technical fundamentals · visual explainers
+**DM keywords** are the comment keywords printed in each post's caption. Leave the keyword in a comment and the matching resources and key checks arrive by DM.
 
-These come from the Reel series that explains **why** something breaks rather than covering a single incident, and each ships with a check script, payload list or example config.
+## Latest
 
-| Topic | Summary | Docs | Script / example |
-| --- | --- | --- | --- |
-| SSRF · URL parser differential | A single `?` makes the validator and the client see different destinations; six bypass variants; IMDSv2 hop limit 1 (keyword `SSRF`) | [한국어](ssrf-url-parser-visual/README.md) · [English](ssrf-url-parser-visual/README_en.md) | [safe_url_check.py](ssrf-url-parser-visual/safe_url_check.py) · [ssrf_payloads.txt](ssrf-url-parser-visual/ssrf_payloads.txt) |
-| SYN Flood · TCP backlog | SYN queue vs accept queue, what SYN cookies cost, diagnosing with kernel counters (keyword `SYN`) | [한국어](syn-flood-tcp-backlog/README.md) · [English](syn-flood-tcp-backlog/README_en.md) | [check_syn_backlog.sh](syn-flood-tcp-backlog/check_syn_backlog.sh) |
-| GitHub OIDC vs static keys | Indefinite `AKIA` keys vs 15 min–1 hour STS credentials, `sub`/`aud` trust policy, migration and retirement order (keyword `OIDC`) | [한국어](github-oidc-vs-static-key/README.md) · [English](github-oidc-vs-static-key/README_en.md) | [oidc_workflow_example.yml](github-oidc-vs-static-key/oidc_workflow_example.yml) · [iam_trust_policy.json](github-oidc-vs-static-key/iam_trust_policy.json) |
-
-## Vulnerabilities · CVE response
-
-| Topic | Summary | Docs | Script |
-| --- | --- | --- | --- |
-| Jenkins Script Security sandbox escape via partially qualified `@Builder` (CVE-2026-136835 · SECURITY-4278) | A `@builder.Builder` spelling the September fix missed still let Groovy instantiate an arbitrary class at compile time; fixed in script-security `1436.1438.v3dc5ef7d16f2` (core 2.479.3+), same advisory as workflow-cps and warnings-ng (keyword `JENKINS`) | [한국어](jenkins-script-security-cve-2026-136835/README.md) · [English](jenkins-script-security-cve-2026-136835/README_en.md) | [check_jenkins_script_security.sh](jenkins-script-security-cve-2026-136835/check_jenkins_script_security.sh) |
-| Traefik Ingress NGINX mTLS header bypass (CVE-2026-137480 · GHSA-ccgh-9g52-6vwg) | Since v3.7.15 client auth applies to the whole host while `Ssl-Client-*` headers were built per Ingress, so an `optional_no_ca` neighbour or an Ingress that does not clear headers forwarded `Ssl-Client-Verify: SUCCESS` and a forged subject to the backend. Fixed in 3.7.18 / 3.8.0-rc.2; v2 unaffected (keyword `MTLS`) | [한국어](traefik-mtls-cve-2026-137480/README.md) · [English](traefik-mtls-cve-2026-137480/README_en.md) | [check_traefik_mtls.sh](traefik-mtls-cve-2026-137480/check_traefik_mtls.sh) |
-| Traefik semicolon path authorization bypass (CVE-2026-137481 · GHSA-cp28-5662-543f) | `sanitizePath` leaves `/..;x/` unresolved; when public and protected routers share a Java backend the auth middleware is skipped. Fixed in 2.11.62 / 3.7.18 / 3.8.0-rc.2, plus GitHub CLI 2.106.0 security fixes (keyword `TRAEFIK`) | [한국어](traefik-cve-2026-137481-gh-cli/README.md) · [English](traefik-cve-2026-137481-gh-cli/README_en.md) | [check_traefik_ghcli.sh](traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh) |
-| Kyverno apiCall URL parser differential (GHSA-pcx2-xcq4-65vf) | `path.Clean` vs `net/url` mismatch bypasses namespace isolation; cluster-scoped reads and Secrets in other namespaces; fixed in 1.19.2 (keyword `KYVERNO`) | [한국어](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [English](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) | [check_kyverno_parser.sh](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/check_kyverno_parser.sh) |
-| AWS SSM Agent CVE-2026-134069 | Shared SSM registration key on older Windows AMIs; DHMC role credential theft; in-place patch insufficient (keyword `SSM`) | [한국어](aws-ssm-agent-cve-2026-134069/README.md) · [English](aws-ssm-agent-cve-2026-134069/README_en.md) | [audit_ssm_windows_ami.sh](aws-ssm-agent-cve-2026-134069/audit_ssm_windows_ami.sh) |
-| NFS2ROOT (CVE-2026-99362) | Unauthenticated remote root in Linux kernel `nfsd`; AWS/EKS scope; fixed kernels | [한국어](cve-2026-99362-nfs2root/README.md) · [English](cve-2026-99362-nfs2root/README_en.md) | [check_nfs2root.sh](cve-2026-99362-nfs2root/check_nfs2root.sh) |
-| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE and NGINX HTTP/2 RCE; trigger-condition checks | [한국어](java4shell-nginx2shell/README.md) · [English](java4shell-nginx2shell/README_en.md) | [check_java_nginx_exposure.sh](java4shell-nginx2shell/check_java_nginx_exposure.sh) |
-| NGINX CVE-2026-132779 | TLS 1.3 `ssl_early_data` worker CPU exhaustion; 1.31.10/1.30.8 | [한국어](nginx-cve-2026-132779/README.md) · [English](nginx-cve-2026-132779/README_en.md) | — |
-| VMware VMSA-2026-0011 | vCenter authentication bypass (CVSS 9.8), ESX I/O filter RCE, fixed builds | [한국어](vmware-vmsa-2026-0011/README.md) · [English](vmware-vmsa-2026-0011/README_en.md) | — |
-| Fake Ollama BYOVD + K8s/Cloud Run MCP | Antivirus-killing driver; unauthenticated SSE MCP patches | [한국어](fake-ollama-byovd-mcp/README.md) · [English](fake-ollama-byovd-mcp/README_en.md) | — |
-
-## Cloud · DevOps
-
-| Topic | Summary | Docs | Script/config |
-| --- | --- | --- | --- |
-| AI agent gateways (#21 · 2026-11-27) | Google Workspace MCP/CLI mandate (2027-02-01, 5,000/day) + AWS ELB for Envoy GA (14 Regions, no Seoul). Agent Registry and ELB checklists (keyword `MCP`) | [한국어](ai-agent-mcp-envoy-gateway/README.md) · [English](ai-agent-mcp-envoy-gateway/README_en.md) | [check_agent_gateway_usage.sh](ai-agent-mcp-envoy-gateway/check_agent_gateway_usage.sh) · [checklist](ai-agent-mcp-envoy-gateway/agent-registry-elb-checklist.md) |
-| 1Password GitHub incident (#18 · 2026-11-26) | Employee corporate GitHub account taken over → private source code, CI/CD, malicious backend code, customer metadata. Vaults and recovery keys untouched; four controls (keyword `1PASS`) | [한국어](1password-github-breach/README.md) · [English](1password-github-breach/README_en.md) | [audit_github_cicd.sh](1password-github-breach/audit_github_cicd.sh) |
-| Cloud secret exposure chain | Rackspace Spot, Radware, Azure APIM, Argo CD; IoCs and rotation order | [한국어](cloud-secrets-exposure/README.md) · [English](cloud-secrets-exposure/README_en.md) | — |
-| OpenRouter prompt theft | Limits of ZDR, upstream provider review, token rotation | [한국어](openrouter-prompt-theft/README.md) · [English](openrouter-prompt-theft/README_en.md) | — |
-| AWS local emulator | `aws/aws-emulator` IAM, KMS, telemetry constraints | [한국어](aws-emulator/README.md) · [English](aws-emulator/README_en.md) | — |
-| Lambda 30-minute timeout | Six traps in concurrency, SQS, NAT, Durable | [한국어](lambda-30min-timeout/README.md) · [English](lambda-30min-timeout/README_en.md) | — |
-| AI agent sandboxes | AWS Nitro Sandboxes vs Google Agent CE; NSM PCR key policy | [한국어](agent-sandboxes/README.md) · [English](agent-sandboxes/README_en.md) | [kms_nsm_pcr_policy.json](agent-sandboxes/kms_nsm_pcr_policy.json) |
-
-## Korean incidents · practical defense
-
-| Topic | Summary | Docs |
+| Date | Topic | DM keyword |
 | --- | --- | --- |
-| CJ Olive Young back-office breach (2026-11-26) | Internal work-system account breached: data on 790 employees, partner staff and customers plus 2,406,338 internal member-number records; payment data and passwords untouched; back-office access-control checklist (keyword `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
-| Danawa full outage (2026-11-26) | Suspected external intrusion; web and app down 15+ hours; confirmed vs unconfirmed, user and operator checklists (keyword `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
-| Four Korean breaches in four days (2026-11-28) | Korea Post 113,855 people in one day, Danawa leak admission, E9pay 90+ attacks and KRW 2.5bn, KOFST 210,000 records across 16 fields; lookup-API authorisation, withdrawal controls and impersonation checklists (keyword `DOMINO`) | [한국어](kr-breach-domino-2026-11-28/README.md) · [English](kr-breach-domino-2026-11-28/README_en.md) |
-| KEPCO: encrypted at rest, leaked in plaintext (2026-11-28) | KEPCO ON's 650,487 customers (12 fields) and 426,827 corporate representatives' registration numbers left decrypted with no key leakage; why encryption at rest cannot stop the app/API decryption layer, plus response minimisation, object-level authorisation and decryption-flow threat modelling checklists (keyword `PLAIN`) | [한국어](kepco-plaintext-exfiltration/README.md) · [English](kepco-plaintext-exfiltration/README_en.md) |
-| Korean breaches, November 2026 | 37 financial companies, KEPCO, Samsung Securities, KICC, CJ Olive Young, Danawa, Suhyup Bank, Hotel Story; KEPCO data-for-sale status and external entry-point checklist | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
-| Securities API defense rulebook | RFC 8693 token exchange, Redis HLL rate limiting, MyBatis `${}` blocking | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
-| Crypto exchange breaches | Bithumb's 15-day intrusion; groupware, vendors, hot wallets | [한국어](crypto-exchange-breaches/README.md) · [English](crypto-exchange-breaches/README_en.md) |
+| 11-28 | [KEPCO: encrypted at rest, leaked in plaintext](kepco-plaintext-exfiltration/README_en.md) — 650,487 customers' records left decrypted with no key leakage | `PLAIN` |
+| 11-28 | [Four Korean breaches in four days](kr-breach-domino-2026-11-28/README_en.md) — Korea Post, Danawa, E9pay, KOFST | `DOMINO` |
+| 11-27 | [Traefik mTLS header bypass](traefik-mtls-cve-2026-137480/README_en.md) — forged `Ssl-Client-*` headers, fixed in 3.7.18 | `MTLS` |
+| 11-27 | [Jenkins Script Security sandbox escape](jenkins-script-security-cve-2026-136835/README_en.md) — `@Builder` runs at compile time | `JENKINS` |
+| 11-27 | [AI agent gateways](ai-agent-mcp-envoy-gateway/README_en.md) — Workspace MCP mandate and ELB for Envoy | `MCP` |
 
-## AI security
+## Collections
 
-| Topic | Summary | Docs |
-| --- | --- | --- |
-| AI agent intrusions | EU Commission, Korean universities, finance; ARTEX/Storm-0940/KimJEN | [한국어](ai-agent-attacks/README.md) · [English](ai-agent-attacks/README_en.md) |
-| Six security AI agents | Red/Blue tool comparison and adoption guardrails | [한국어](ai-security-agents/README.md) · [English](ai-security-agents/README_en.md) |
-| OpenShell (CNCF) | Kernel-level agent isolation; 0.1.x limits | [한국어](openshell-cncf/README.md) · [English](openshell-cncf/README_en.md) |
-| Claude CVP + Mythos | Tier requirements, static key ban on 12/15, practical use | [한국어](claude-cvp-mythos/README.md) · [English](claude-cvp-mythos/README_en.md) |
+- [🚨 Korean incidents & data breaches](#kr-breach) — 7
+- [☸️ Kubernetes · cloud · network](#k8s-cloud) — 13
+- [🔧 CI/CD · supply chain · runtime](#cicd) — 3
+- [🤖 AI security · practical guides](#ai-guide) — 9
+- [Quick checks](#quick) — runnable read-only scripts
 
-## Document security
+<a id="kr-breach"></a>
+## 🚨 Korean incidents & data breaches
 
-| Topic | Summary | Docs | Script |
+Breaches confirmed in Korea, plus the defence rules pulled out of each one.
+
+| Topic | Summary | DM keyword | Docs |
 | --- | --- | --- | --- |
-| PDF redaction | The black-box trap, metadata removal, CI extraction gate | [한국어](pdf-redaction-ci/README.md) · [English](pdf-redaction-ci/README_en.md) | [check_pdf_redaction.sh](pdf-redaction-ci/check_pdf_redaction.sh) |
+| Korean breaches, November 2026 | 37 financial companies, KEPCO, Samsung Securities, KICC, CJ Olive Young, Danawa, Suhyup Bank, Hotel Story — the external entry points that keep getting hit, with lookup and response checklists | `KR` `DOSSIER` `FIN` `KICC` `KEPCO` `SAMSUNG` `VOC` | [KR](korea-breach-tracker-2026-11/README.md) · [EN](korea-breach-tracker-2026-11/README_en.md) |
+| Four Korean breaches in four days (2026-11-28) | Korea Post 113,855 people in one day, Danawa leak admission, E9pay 90+ attacks and KRW 2.5bn, KOFST 210,000 records — lookup-API authorisation and withdrawal controls | `DOMINO` | [KR](kr-breach-domino-2026-11-28/README.md) · [EN](kr-breach-domino-2026-11-28/README_en.md) |
+| KEPCO: encrypted at rest, leaked in plaintext | Why encryption at rest cannot stop the app/API decryption layer; response minimisation and object-level authorisation checklists | `PLAIN` | [KR](kepco-plaintext-exfiltration/README.md) · [EN](kepco-plaintext-exfiltration/README_en.md) |
+| CJ Olive Young back-office breach | Internal work-system account breached: 790 employees, partners and customers plus 2,406,338 member-number records; payment data and passwords untouched | `OLIVE` | [KR](cj-oliveyoung-breach/README.md) · [EN](cj-oliveyoung-breach/README_en.md) |
+| Danawa full outage | Suspected external intrusion, web and app down 15+ hours; confirmed vs unconfirmed, user and operator checklists | `DANAWA` | [KR](danawa-service-outage/README.md) · [EN](danawa-service-outage/README_en.md) |
+| Crypto exchange breaches | Bithumb's 15-day intrusion — the way in was groupware, vendor agents and hot wallets, not cold wallets | `CRYPTO` | [KR](crypto-exchange-breaches/README.md) · [EN](crypto-exchange-breaches/README_en.md) |
+| Securities API defense rulebook | The three holes written into a 77,545-person breach report — RFC 8693 token exchange, Redis HLL rate limiting, MyBatis `${}` blocking | `SECURITIES` | [KR](securities-api-defense/README.md) · [EN](securities-api-defense/README_en.md) |
 
+<a id="k8s-cloud"></a>
+## ☸️ Kubernetes · cloud · network
+
+Where infrastructure actually breaks: proxies, ingress controllers, cluster policy, kernels and load balancers.
+
+| Topic | Summary | DM keyword | Docs |
+| --- | --- | --- | --- |
+| Traefik Ingress NGINX mTLS header bypass (CVE-2026-137480) | Client auth applies per host since v3.7.15 while `Ssl-Client-*` headers are built per Ingress, so an `optional_no_ca` neighbour lets a forged `Ssl-Client-Verify: SUCCESS` through; fixed in 3.7.18 / 3.8.0-rc.2 | `MTLS` | [KR](traefik-mtls-cve-2026-137480/README.md) · [EN](traefik-mtls-cve-2026-137480/README_en.md) |
+| Traefik semicolon path authorization bypass (CVE-2026-137481) | `sanitizePath` leaves `/..;x/` unresolved, so public and protected routers sharing a Java backend skip auth middleware; 2.11.62 / 3.7.18 | `TRAEFIK` | [KR](traefik-cve-2026-137481-gh-cli/README.md) · [EN](traefik-cve-2026-137481-gh-cli/README_en.md) |
+| Kyverno apiCall URL parser differential (GHSA-pcx2-xcq4-65vf) | A `?x=/namespaces/<ns>/` decoy passes validation while the executor drops everything after `?`, reading cluster-scoped resources and Secrets in other namespaces; fixed in 1.19.2 | `KYVERNO` | [KR](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [EN](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) |
+| AWS SSM Agent (CVE-2026-134069) | Windows AMIs before 2026-09-09 share one SSM registration key; DHMC role credential theft; in-place patch does not fix it | `SSM` | [KR](aws-ssm-agent-cve-2026-134069/README.md) · [EN](aws-ssm-agent-cve-2026-134069/README_en.md) |
+| NFS2ROOT (CVE-2026-99362) | Unauthenticated remote root in Linux kernel `nfsd`; AWS/EKS scope test and fixed kernels | `NFS` | [KR](cve-2026-99362-nfs2root/README.md) · [EN](cve-2026-99362-nfs2root/README_en.md) |
+| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE and NGINX HTTP/2 RCE — check the CPU instruction set and proxy settings first | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
+| NGINX CVE-2026-132779 | With TLS 1.3 `ssl_early_data`, an unauthenticated client pins worker CPU at 100%; 1.31.10 / 1.30.8 | `NGINX` | [KR](nginx-cve-2026-132779/README.md) · [EN](nginx-cve-2026-132779/README_en.md) |
+| SSRF · URL parser differential | One `?` makes the validator and the client see different destinations; six bypass variants and IMDSv2 hop limit 1 | `SSRF` | [KR](ssrf-url-parser-visual/README.md) · [EN](ssrf-url-parser-visual/README_en.md) |
+| SYN Flood · TCP backlog | An attack that fills the queue, not the link; SYN queue vs accept queue and kernel counters | `SYN` | [KR](syn-flood-tcp-backlog/README.md) · [EN](syn-flood-tcp-backlog/README_en.md) |
+| Cloud secret exposure chain | Rackspace Spot, Radware WAF, Azure APIM, Argo CD — IoCs and rotation order by issuer | `SPOT` `SECRET` | [KR](cloud-secrets-exposure/README.md) · [EN](cloud-secrets-exposure/README_en.md) |
+| AWS local emulator | `aws/aws-emulator` covers 438 API models, but a green local test is not production safety — IAM, KMS and telemetry limits | `AWS` | [KR](aws-emulator/README.md) · [EN](aws-emulator/README_en.md) |
+| Lambda 30-minute timeout | Raising `--timeout 1800` alone breaks concurrency, SQS visibility and NAT keep-alive: six traps | `LAMBDA` | [KR](lambda-30min-timeout/README.md) · [EN](lambda-30min-timeout/README_en.md) |
+| VMware VMSA-2026-0011 | vCenter authentication bypass (CVSS 9.8) and ESX I/O filter RCE; separate from last week's zero-day, check again | `VMWARE` | [KR](vmware-vmsa-2026-0011/README.md) · [EN](vmware-vmsa-2026-0011/README_en.md) |
+
+<a id="cicd"></a>
+## 🔧 CI/CD · supply chain · runtime
+
+Breaches that start from build pipelines, developer accounts and deployment credentials.
+
+| Topic | Summary | DM keyword | Docs |
+| --- | --- | --- | --- |
+| 1Password GitHub account breach | One employee's corporate GitHub account led to private source copies, CI/CD access and malicious backend code; four controls (no classic PATs, CODEOWNERS, OIDC, recovery-code handling) | `1PASS` | [KR](1password-github-breach/README.md) · [EN](1password-github-breach/README_en.md) |
+| Jenkins Script Security `@Builder` sandbox escape (CVE-2026-136835) | Arbitrary class constructors run at compile time, before the sandbox is applied; script-security `1436.1438.v3dc5ef7d16f2`, core 2.479.3+ | `JENKINS` | [KR](jenkins-script-security-cve-2026-136835/README.md) · [EN](jenkins-script-security-cve-2026-136835/README_en.md) |
+| GitHub Actions OIDC vs static keys | Instead of an indefinite `AKIA` key, 15 min–1 hour STS credentials checked against `sub`/`aud`; migration, retirement and common traps | `OIDC` | [KR](github-oidc-vs-static-key/README.md) · [EN](github-oidc-vs-static-key/README_en.md) |
+
+> The seven GitHub CLI 2.106.0 security fixes are documented in the [Traefik semicolon path bypass](traefik-cve-2026-137481-gh-cli/README_en.md) folder.
+
+<a id="ai-guide"></a>
+## 🤖 AI security · practical guides
+
+For teams deploying agents and teams defending against them, plus hands-on guides for documents and data.
+
+### AI security
+
+| Topic | Summary | DM keyword | Docs |
+| --- | --- | --- | --- |
+| AI agent gateways | Google Workspace restricts direct REST calls from agents (2027-02-01) and AWS opens ELB for Envoy GA — both funnel inspection and patching through one gateway | `MCP` | [KR](ai-agent-mcp-envoy-gateway/README.md) · [EN](ai-agent-mcp-envoy-gateway/README_en.md) |
+| AI agent intrusions | EU Commission, Korean universities, finance and diplomacy; ARTEX / Storm-0940 / KimJEN automating recon, intrusion and defacement | `AI` | [KR](ai-agent-attacks/README.md) · [EN](ai-agent-attacks/README_en.md) |
+| Six security AI agents | Red/Blue team open-source comparison and in-house adoption guardrails | `AGENT` | [KR](ai-security-agents/README.md) · [EN](ai-security-agents/README_en.md) |
+| Claude CVP + Mythos | Anthropic's approval programme for defenders using relaxed guardrails; tier conditions and the 12/15 static-key ban | `CVP` | [KR](claude-cvp-mythos/README.md) · [EN](claude-cvp-mythos/README_en.md) |
+| AI agent sandboxes | AWS Nitro Sandboxes vs Google Agent CE — hardware isolation beyond containers and NSM PCR key policy | `SANDBOX` | [KR](agent-sandboxes/README.md) · [EN](agent-sandboxes/README_en.md) |
+| OpenShell (CNCF) | Open-source runtime isolating agents at the OS kernel level; 0.1.x limits | `OPEN` | [KR](openshell-cncf/README.md) · [EN](openshell-cncf/README_en.md) |
+| Fake Ollama BYOVD + MCP | A fake Korean Ollama site shipping an antivirus-killing driver, and unauthenticated SSE MCP server patches | `OLLAMA` | [KR](fake-ollama-byovd-mcp/README.md) · [EN](fake-ollama-byovd-mcp/README_en.md) |
+| OpenRouter prompt theft | ZDR protects only the first hop — upstream inference provider review and token rotation | `OPENROUTER` | [KR](openrouter-prompt-theft/README.md) · [EN](openrouter-prompt-theft/README_en.md) |
+
+### Practical guides
+
+| Topic | Summary | DM keyword | Docs |
+| --- | --- | --- | --- |
+| PDF redaction | A black box is not a deletion — why 230 people's data was recoverable from ten court rulings, plus metadata stripping and a CI extraction gate | `PDF` | [KR](pdf-redaction-ci/README.md) · [EN](pdf-redaction-ci/README_en.md) |
+
+<a id="quick"></a>
 ## Quick checks
+
+Every script is read-only and does not change the system.
 
 ```bash
 # NFS2ROOT exposure check (read-only, CSV aggregation)
@@ -100,6 +132,12 @@ bash audit_ssm_windows_ami.sh
 # Traefik versions, access-log traces and gh CLI version (read-only)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh
 bash check_traefik_ghcli.sh --context prod
+```
+
+```bash
+# Traefik mTLS host / Ingress annotation / header stripping check (read-only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/traefik-mtls-cve-2026-137480/check_traefik_mtls.sh
+bash check_traefik_mtls.sh --context prod
 ```
 
 ```bash
@@ -138,4 +176,4 @@ curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/jenkins-sc
 bash check_jenkins_script_security.sh --url "$JENKINS_URL" --user bot --token "$TOKEN" --jenkins-home /var/lib/jenkins
 ```
 
-> The documents and scripts here are aids for triage. The scripts are read-only and do not change the system. Check vendor advisories and your organization's policy as well.
+> The documents and scripts here are aids for triage. Check vendor advisories and your organization's policy as well.
