@@ -21,8 +21,8 @@
 ## 컬렉션 바로가기
 
 - [🚨 국내 보안사고 & 개인정보 유출](#kr-breach) — 7편
-- [☸️ Kubernetes · 클라우드 · 네트워크](#k8s-cloud) — 13편
-- [🔧 CI/CD · 공급망 · 런타임](#cicd) — 3편
+- [☸️ Kubernetes · 클라우드 · 네트워크](#k8s-cloud) — 11편
+- [🔧 CI/CD · 공급망 · 런타임](#cicd) — 5편
 - [🤖 AI 보안 · 실무 가이드](#ai-guide) — 9편
 - [바로 쓰는 점검 스크립트](#quick) — 복사해서 실행하는 점검 명령
 
@@ -53,8 +53,6 @@
 | Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `?x=/namespaces/{ns}/` decoy가 검증을 통과하고 실행기는 `?` 뒤를 버려 클러스터 전역 자원과 타 네임스페이스 Secret 열람, 1.19.2 | `KYVERNO` | [KR](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [EN](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) |
 | AWS SSM Agent (CVE-2026-134069) | 2026-09-09 이전 AWS Windows AMI가 같은 SSM 등록 키를 공유, DHMC Role 자격증명 탈취, 인플레이스 패치 무효 | `SSM` | [KR](aws-ssm-agent-cve-2026-134069/README.md) · [EN](aws-ssm-agent-cve-2026-134069/README_en.md) |
 | NFS2ROOT (CVE-2026-99362) | 리눅스 커널 `nfsd` 무인증 원격 루트 — AWS·EKS 해당 여부 판별과 고정 커널 버전 | `NFS` | [KR](cve-2026-99362-nfs2root/README.md) · [EN](cve-2026-99362-nfs2root/README_en.md) |
-| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE와 NGINX HTTP/2 RCE — CPU 명령어 집합과 프록시 설정이라는 발동 조건부터 확인 | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
-| NGINX CVE-2026-132779 | TLS 1.3 `ssl_early_data` 환경에서 인증 없이 워커 CPU를 100%로 고정, 1.31.10·1.30.8 | `NGINX` | [KR](nginx-cve-2026-132779/README.md) · [EN](nginx-cve-2026-132779/README_en.md) |
 | SSRF · URL 파서 불일치 | `?` 하나로 검증기와 클라이언트가 다른 목적지를 본다 — 우회 6종과 IMDSv2 hop limit 1 | `SSRF` | [KR](ssrf-url-parser-visual/README.md) · [EN](ssrf-url-parser-visual/README_en.md) |
 | SYN Flood · TCP 백로그 | 회선이 아니라 대기열을 채우는 공격 — SYN queue·accept queue 구분과 커널 카운터 진단 | `SYN` | [KR](syn-flood-tcp-backlog/README.md) · [EN](syn-flood-tcp-backlog/README_en.md) |
 | 클라우드 시크릿 연쇄 노출 | Rackspace Spot·Radware WAF·Azure APIM·Argo CD — IoC와 발급처 기준 키 로테이션 순서 | `SPOT` `SECRET` | [KR](cloud-secrets-exposure/README.md) · [EN](cloud-secrets-exposure/README_en.md) |
@@ -65,13 +63,15 @@
 <a id="cicd" name="cicd"></a>
 ## 🔧 CI/CD · 공급망 · 런타임
 
-빌드 파이프라인과 개발자 계정, 배포 자격증명에서 시작하는 침해입니다.
+빌드 파이프라인·개발자 계정·배포 자격증명에서 시작하는 침해와, 그 파이프라인이 배포하는 런타임(JDK·NGINX) 취약점입니다.
 
 | 주제 | 핵심 한 줄 | DM 키워드 | 자료 |
 | --- | --- | --- | --- |
 | 1Password GitHub 계정 침해 | 직원 기업 GitHub 계정 하나에서 비공개 소스 복사·CI/CD 접근·백엔드 악성코드까지, 4대 통제(Classic PAT 금지·CODEOWNERS·OIDC·복구 코드 관리) | `1PASS` | [KR](1password-github-breach/README.md) · [EN](1password-github-breach/README_en.md) |
 | Jenkins Script Security `@Builder` 샌드박스 탈출 (CVE-2026-136835) | 샌드박스가 씌워지기 전 컴파일 단계에서 임의 클래스 생성자 실행 — script-security `1436.1438.v3dc5ef7d16f2`·코어 2.479.3+ | `JENKINS` | [KR](jenkins-script-security-cve-2026-136835/README.md) · [EN](jenkins-script-security-cve-2026-136835/README_en.md) |
 | GitHub Actions OIDC vs 정적 키 | 무기한 `AKIA` 키 대신 `sub`·`aud`를 확인하는 15분~1시간 STS 자격증명, 전환·폐기 순서와 흔한 함정 | `OIDC` | [KR](github-oidc-vs-static-key/README.md) · [EN](github-oidc-vs-static-key/README_en.md) |
+| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE와 NGINX HTTP/2 RCE — CPU 명령어 집합과 프록시 설정이라는 발동 조건부터 확인 | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
+| NGINX CVE-2026-132779 | TLS 1.3 `ssl_early_data` 환경에서 인증 없이 워커 CPU를 100%로 고정, 1.31.10·1.30.8 | `NGINX` | [KR](nginx-cve-2026-132779/README.md) · [EN](nginx-cve-2026-132779/README_en.md) |
 
 > GitHub CLI 2.106.0 보안 7건은 [Traefik 세미콜론 경로 인증 우회](traefik-cve-2026-137481-gh-cli/README.md) 폴더에 함께 정리돼 있습니다.
 

@@ -21,8 +21,8 @@ Folders are grouped into topic collections. Pick a topic below; every folder has
 ## Collections
 
 - [🚨 Korean incidents & data breaches](#kr-breach) — 7
-- [☸️ Kubernetes · cloud · network](#k8s-cloud) — 13
-- [🔧 CI/CD · supply chain · runtime](#cicd) — 3
+- [☸️ Kubernetes · cloud · network](#k8s-cloud) — 11
+- [🔧 CI/CD · supply chain · runtime](#cicd) — 5
 - [🤖 AI security · practical guides](#ai-guide) — 9
 - [Quick checks](#quick) — runnable read-only scripts
 
@@ -53,8 +53,6 @@ Where infrastructure actually breaks: proxies, ingress controllers, cluster poli
 | Kyverno apiCall URL parser differential (GHSA-pcx2-xcq4-65vf) | A `?x=/namespaces/{ns}/` decoy passes validation while the executor drops everything after `?`, reading cluster-scoped resources and Secrets in other namespaces; fixed in 1.19.2 | `KYVERNO` | [KR](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [EN](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) |
 | AWS SSM Agent (CVE-2026-134069) | Windows AMIs before 2026-09-09 share one SSM registration key; DHMC role credential theft; in-place patch does not fix it | `SSM` | [KR](aws-ssm-agent-cve-2026-134069/README.md) · [EN](aws-ssm-agent-cve-2026-134069/README_en.md) |
 | NFS2ROOT (CVE-2026-99362) | Unauthenticated remote root in Linux kernel `nfsd`; AWS/EKS scope test and fixed kernels | `NFS` | [KR](cve-2026-99362-nfs2root/README.md) · [EN](cve-2026-99362-nfs2root/README_en.md) |
-| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE and NGINX HTTP/2 RCE — check the CPU instruction set and proxy settings first | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
-| NGINX CVE-2026-132779 | With TLS 1.3 `ssl_early_data`, an unauthenticated client pins worker CPU at 100%; 1.31.10 / 1.30.8 | `NGINX` | [KR](nginx-cve-2026-132779/README.md) · [EN](nginx-cve-2026-132779/README_en.md) |
 | SSRF · URL parser differential | One `?` makes the validator and the client see different destinations; six bypass variants and IMDSv2 hop limit 1 | `SSRF` | [KR](ssrf-url-parser-visual/README.md) · [EN](ssrf-url-parser-visual/README_en.md) |
 | SYN Flood · TCP backlog | An attack that fills the queue, not the link; SYN queue vs accept queue and kernel counters | `SYN` | [KR](syn-flood-tcp-backlog/README.md) · [EN](syn-flood-tcp-backlog/README_en.md) |
 | Cloud secret exposure chain | Rackspace Spot, Radware WAF, Azure APIM, Argo CD — IoCs and rotation order by issuer | `SPOT` `SECRET` | [KR](cloud-secrets-exposure/README.md) · [EN](cloud-secrets-exposure/README_en.md) |
@@ -65,13 +63,15 @@ Where infrastructure actually breaks: proxies, ingress controllers, cluster poli
 <a id="cicd" name="cicd"></a>
 ## 🔧 CI/CD · supply chain · runtime
 
-Breaches that start from build pipelines, developer accounts and deployment credentials.
+Breaches that start from build pipelines, developer accounts and deployment credentials, plus runtime CVEs in what those pipelines ship (JDK, NGINX).
 
 | Topic | Summary | DM keyword | Docs |
 | --- | --- | --- | --- |
 | 1Password GitHub account breach | One employee's corporate GitHub account led to private source copies, CI/CD access and malicious backend code; four controls (no classic PATs, CODEOWNERS, OIDC, recovery-code handling) | `1PASS` | [KR](1password-github-breach/README.md) · [EN](1password-github-breach/README_en.md) |
 | Jenkins Script Security `@Builder` sandbox escape (CVE-2026-136835) | Arbitrary class constructors run at compile time, before the sandbox is applied; script-security `1436.1438.v3dc5ef7d16f2`, core 2.479.3+ | `JENKINS` | [KR](jenkins-script-security-cve-2026-136835/README.md) · [EN](jenkins-script-security-cve-2026-136835/README_en.md) |
 | GitHub Actions OIDC vs static keys | Instead of an indefinite `AKIA` key, 15 min–1 hour STS credentials checked against `sub`/`aud`; migration, retirement and common traps | `OIDC` | [KR](github-oidc-vs-static-key/README.md) · [EN](github-oidc-vs-static-key/README_en.md) |
+| Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE and NGINX HTTP/2 RCE — check the CPU instruction set and proxy settings first | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
+| NGINX CVE-2026-132779 | With TLS 1.3 `ssl_early_data`, an unauthenticated client pins worker CPU at 100%; 1.31.10 / 1.30.8 | `NGINX` | [KR](nginx-cve-2026-132779/README.md) · [EN](nginx-cve-2026-132779/README_en.md) |
 
 > The seven GitHub CLI 2.106.0 security fixes are documented in the [Traefik semicolon path bypass](traefik-cve-2026-137481-gh-cli/README_en.md) folder.
 
