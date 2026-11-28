@@ -26,7 +26,7 @@
 - [🤖 AI 보안 · 실무 가이드](#ai-guide) — 9편
 - [바로 쓰는 점검 스크립트](#quick) — 복사해서 실행하는 점검 명령
 
-<a id="kr-breach"></a>
+<a id="kr-breach" name="kr-breach"></a>
 ## 🚨 국내 보안사고 & 개인정보 유출
 
 국내에서 확인된 유출·침해 사고와 그 사고에서 뽑은 방어 규칙입니다.
@@ -41,7 +41,7 @@
 | 가상자산 거래소 연쇄 침해 | 빗썸 15일 침입 — 뚫린 곳은 콜드월렛이 아니라 그룹웨어·외주 상담사·핫월렛 | `CRYPTO` | [KR](crypto-exchange-breaches/README.md) · [EN](crypto-exchange-breaches/README_en.md) |
 | 증권사 API 방어 룰북 | 7만 7,545명 유출 신고서에 적힌 세 구멍 — RFC 8693 인증변환, Redis HLL 레이트리밋, MyBatis `${}` 차단 | `SECURITIES` | [KR](securities-api-defense/README.md) · [EN](securities-api-defense/README_en.md) |
 
-<a id="k8s-cloud"></a>
+<a id="k8s-cloud" name="k8s-cloud"></a>
 ## ☸️ Kubernetes · 클라우드 · 네트워크
 
 프록시·수신 컨트롤러·클러스터 정책부터 커널·로드밸런서까지, 인프라 계층에서 실제로 뚫리는 지점입니다.
@@ -62,7 +62,7 @@
 | Lambda 30분 타임아웃 | `--timeout 1800`만 올리면 동시성·SQS Visibility·NAT Keep-Alive에서 나는 6가지 함정 | `LAMBDA` | [KR](lambda-30min-timeout/README.md) · [EN](lambda-30min-timeout/README_en.md) |
 | VMware VMSA-2026-0011 | vCenter 인증 우회(CVSS 9.8)와 ESX I/O 필터 RCE — 지난주 제로데이 패치와 별개라 다시 확인 | `VMWARE` | [KR](vmware-vmsa-2026-0011/README.md) · [EN](vmware-vmsa-2026-0011/README_en.md) |
 
-<a id="cicd"></a>
+<a id="cicd" name="cicd"></a>
 ## 🔧 CI/CD · 공급망 · 런타임
 
 빌드 파이프라인과 개발자 계정, 배포 자격증명에서 시작하는 침해입니다.
@@ -75,7 +75,7 @@
 
 > GitHub CLI 2.106.0 보안 7건은 [Traefik 세미콜론 경로 인증 우회](traefik-cve-2026-137481-gh-cli/README.md) 폴더에 함께 정리돼 있습니다.
 
-<a id="ai-guide"></a>
+<a id="ai-guide" name="ai-guide"></a>
 ## 🤖 AI 보안 · 실무 가이드
 
 에이전트를 쓰는 쪽과 막는 쪽 모두의 자료, 그리고 문서·데이터를 다루는 실무 가이드입니다.
@@ -99,7 +99,7 @@
 | --- | --- | --- | --- |
 | PDF 비식별화 | 검은 네모는 삭제가 아니다 — 판결문 10건 230명분 개인정보가 복원된 이유, 메타데이터 제거와 CI 추출 게이트 | `PDF` | [KR](pdf-redaction-ci/README.md) · [EN](pdf-redaction-ci/README_en.md) |
 
-<a id="quick"></a>
+<a id="quick" name="quick"></a>
 ## 바로 쓰는 점검
 
 모든 스크립트는 읽기 전용이며 시스템을 변경하지 않습니다.

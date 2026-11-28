@@ -26,7 +26,7 @@ Folders are grouped into topic collections. Pick a topic below; every folder has
 - [🤖 AI security · practical guides](#ai-guide) — 9
 - [Quick checks](#quick) — runnable read-only scripts
 
-<a id="kr-breach"></a>
+<a id="kr-breach" name="kr-breach"></a>
 ## 🚨 Korean incidents & data breaches
 
 Breaches confirmed in Korea, plus the defence rules pulled out of each one.
@@ -41,7 +41,7 @@ Breaches confirmed in Korea, plus the defence rules pulled out of each one.
 | Crypto exchange breaches | Bithumb's 15-day intrusion — the way in was groupware, vendor agents and hot wallets, not cold wallets | `CRYPTO` | [KR](crypto-exchange-breaches/README.md) · [EN](crypto-exchange-breaches/README_en.md) |
 | Securities API defense rulebook | The three holes written into a 77,545-person breach report — RFC 8693 token exchange, Redis HLL rate limiting, MyBatis `${}` blocking | `SECURITIES` | [KR](securities-api-defense/README.md) · [EN](securities-api-defense/README_en.md) |
 
-<a id="k8s-cloud"></a>
+<a id="k8s-cloud" name="k8s-cloud"></a>
 ## ☸️ Kubernetes · cloud · network
 
 Where infrastructure actually breaks: proxies, ingress controllers, cluster policy, kernels and load balancers.
@@ -62,7 +62,7 @@ Where infrastructure actually breaks: proxies, ingress controllers, cluster poli
 | Lambda 30-minute timeout | Raising `--timeout 1800` alone breaks concurrency, SQS visibility and NAT keep-alive: six traps | `LAMBDA` | [KR](lambda-30min-timeout/README.md) · [EN](lambda-30min-timeout/README_en.md) |
 | VMware VMSA-2026-0011 | vCenter authentication bypass (CVSS 9.8) and ESX I/O filter RCE; separate from last week's zero-day, check again | `VMWARE` | [KR](vmware-vmsa-2026-0011/README.md) · [EN](vmware-vmsa-2026-0011/README_en.md) |
 
-<a id="cicd"></a>
+<a id="cicd" name="cicd"></a>
 ## 🔧 CI/CD · supply chain · runtime
 
 Breaches that start from build pipelines, developer accounts and deployment credentials.
@@ -75,7 +75,7 @@ Breaches that start from build pipelines, developer accounts and deployment cred
 
 > The seven GitHub CLI 2.106.0 security fixes are documented in the [Traefik semicolon path bypass](traefik-cve-2026-137481-gh-cli/README_en.md) folder.
 
-<a id="ai-guide"></a>
+<a id="ai-guide" name="ai-guide"></a>
 ## 🤖 AI security · practical guides
 
 For teams deploying agents and teams defending against them, plus hands-on guides for documents and data.
@@ -99,7 +99,7 @@ For teams deploying agents and teams defending against them, plus hands-on guide
 | --- | --- | --- | --- |
 | PDF redaction | A black box is not a deletion — why 230 people's data was recoverable from ten court rulings, plus metadata stripping and a CI extraction gate | `PDF` | [KR](pdf-redaction-ci/README.md) · [EN](pdf-redaction-ci/README_en.md) |
 
-<a id="quick"></a>
+<a id="quick" name="quick"></a>
 ## Quick checks
 
 Every script is read-only and does not change the system.
