@@ -12,6 +12,7 @@ Folders are grouped into topic collections. Pick a topic below; every folder has
 
 | Date | Topic | DM keyword |
 | --- | --- | --- |
+| 11-28 | [Claude's Riemann proof, does it break encryption?](claude-riemann-hypothesis-security/README_en.md) — RSA-2048, ECC and PQC unaffected; 1024-bit RSA lifetime and a four-step check | `RIEMANN` |
 | 11-28 | [KEPCO: encrypted at rest, leaked in plaintext](kepco-plaintext-exfiltration/README_en.md) — 650,487 customers' records left decrypted with no key leakage | `PLAIN` |
 | 11-28 | [Four Korean breaches in four days](kr-breach-domino-2026-11-28/README_en.md) — Korea Post, Danawa, E9pay, KOFST | `DOMINO` |
 | 11-27 | [Traefik mTLS header bypass](traefik-mtls-cve-2026-137480/README_en.md) — forged `Ssl-Client-*` headers, fixed in 3.7.18 | `MTLS` |
@@ -23,7 +24,7 @@ Folders are grouped into topic collections. Pick a topic below; every folder has
 - [🚨 Korean incidents & data breaches](#kr-breach) — 7
 - [☸️ Kubernetes · cloud · network](#k8s-cloud) — 11
 - [🔧 CI/CD · supply chain · runtime](#cicd) — 5
-- [🤖 AI security · practical guides](#ai-guide) — 9
+- [🤖 AI security · practical guides](#ai-guide) — 10
 - [Quick checks](#quick) — runnable read-only scripts
 
 <a id="kr-breach" name="kr-breach"></a>
@@ -84,6 +85,7 @@ For teams deploying agents and teams defending against them, plus hands-on guide
 
 | Topic | Summary | DM keyword | Docs |
 | --- | --- | --- | --- |
+| Claude, the Riemann hypothesis and encryption | The proof does not break RSA — unconditional GRH results, the AI × Lean verification turning point, retiring 1024-bit RSA and crypto-agility | `RIEMANN` | [KR](claude-riemann-hypothesis-security/README.md) · [EN](claude-riemann-hypothesis-security/README_en.md) |
 | AI agent gateways | Google Workspace restricts direct REST calls from agents (2027-02-01) and AWS opens ELB for Envoy GA — both funnel inspection and patching through one gateway | `MCP` | [KR](ai-agent-mcp-envoy-gateway/README.md) · [EN](ai-agent-mcp-envoy-gateway/README_en.md) |
 | AI agent intrusions | EU Commission, Korean universities, finance and diplomacy; ARTEX / Storm-0940 / KimJEN automating recon, intrusion and defacement | `AI` | [KR](ai-agent-attacks/README.md) · [EN](ai-agent-attacks/README_en.md) |
 | Six security AI agents | Red/Blue team open-source comparison and in-house adoption guardrails | `AGENT` | [KR](ai-security-agents/README.md) · [EN](ai-security-agents/README_en.md) |
@@ -103,6 +105,12 @@ For teams deploying agents and teams defending against them, plus hands-on guide
 ## Quick checks
 
 Every script is read-only and does not change the system.
+
+```bash
+# Legacy RSA, SHA-1 certificate and DKIM key check (read-only)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/claude-riemann-hypothesis-security/check_legacy_rsa_certs.sh
+bash check_legacy_rsa_certs.sh --hosts hosts.txt --csv
+```
 
 ```bash
 # NFS2ROOT exposure check (read-only, CSV aggregation)

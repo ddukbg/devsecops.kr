@@ -12,6 +12,7 @@
 
 | 날짜 | 주제 | DM 키워드 |
 | --- | --- | --- |
+| 11-28 | [클로드가 푼 리만 가설, 암호는 뚫렸나](claude-riemann-hypothesis-security/README.md) — RSA-2048·ECC·PQC 무영향, 1024-bit RSA 수명과 4단계 점검 | `RIEMANN` |
 | 11-28 | [한전 '저장은 암호문, 유출은 평문'](kepco-plaintext-exfiltration/README.md) — 암호키 유출 없이 복호화된 평문 65만 명분 | `PLAIN` |
 | 11-28 | [국내 연쇄 해킹 4건](kr-breach-domino-2026-11-28/README.md) — 인터넷우체국·다나와·이나인페이·과기공제회 | `DOMINO` |
 | 11-27 | [Traefik mTLS 헤더 우회](traefik-mtls-cve-2026-137480/README.md) — `Ssl-Client-*` 헤더 위조, 3.7.18 | `MTLS` |
@@ -23,7 +24,7 @@
 - [🚨 국내 보안사고 & 개인정보 유출](#kr-breach) — 7편
 - [☸️ Kubernetes · 클라우드 · 네트워크](#k8s-cloud) — 11편
 - [🔧 CI/CD · 공급망 · 런타임](#cicd) — 5편
-- [🤖 AI 보안 · 실무 가이드](#ai-guide) — 9편
+- [🤖 AI 보안 · 실무 가이드](#ai-guide) — 10편
 - [바로 쓰는 점검 스크립트](#quick) — 복사해서 실행하는 점검 명령
 
 <a id="kr-breach" name="kr-breach"></a>
@@ -84,6 +85,7 @@
 
 | 주제 | 핵심 한 줄 | DM 키워드 | 자료 |
 | --- | --- | --- | --- |
+| 클로드 · 리만 가설과 암호 | 리만 가설 증명은 RSA를 뚫지 않는다 — GRH 조건부 정리의 확정, AI×Lean 검증 전환점, 1024-bit RSA 퇴출과 Crypto-Agility | `RIEMANN` | [KR](claude-riemann-hypothesis-security/README.md) · [EN](claude-riemann-hypothesis-security/README_en.md) |
 | AI 에이전트 게이트웨이 | Google Workspace REST 직결 제한(2027-02-01)과 AWS ELB for Envoy GA — 검사와 패치를 단일 관문으로 모으는 두 발표 | `MCP` | [KR](ai-agent-mcp-envoy-gateway/README.md) · [EN](ai-agent-mcp-envoy-gateway/README_en.md) |
 | AI 에이전트 주도 침해 | EU 집행위·국내 대학·금융·외교에서 정찰·침투·웹 변조를 자동화한 사고, ARTEX/Storm-0940/KimJEN | `AI` | [KR](ai-agent-attacks/README.md) · [EN](ai-agent-attacks/README_en.md) |
 | 보안팀 AI 에이전트 6선 | Red/Blue 팀별 오픈소스 비교와 사내 도입 가드레일 | `AGENT` | [KR](ai-security-agents/README.md) · [EN](ai-security-agents/README_en.md) |
@@ -132,6 +134,12 @@ bash audit_ssm_windows_ami.sh
 # Traefik 버전 · access log 흔적 · gh CLI 버전 점검 (읽기 전용)
 curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/traefik-cve-2026-137481-gh-cli/check_traefik_ghcli.sh
 bash check_traefik_ghcli.sh --context prod
+```
+
+```bash
+# 레거시 RSA · SHA-1 인증서 · DKIM 키 점검 (읽기 전용)
+curl -sSLO https://raw.githubusercontent.com/ddukbg/devsecops.kr/main/claude-riemann-hypothesis-security/check_legacy_rsa_certs.sh
+bash check_legacy_rsa_certs.sh --hosts hosts.txt --csv
 ```
 
 ```bash
