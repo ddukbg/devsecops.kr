@@ -50,6 +50,7 @@
 | CJ올리브영 업무시스템 침해 (2026-11-26) | 업무망 계정 침해로 임직원·협력사·고객 790명 정보와 내부 관리용 회원번호 자료 240만 6,338건 유출, 결제정보·비밀번호는 비노출, 백오피스 접근통제 체크리스트 (키워드 `OLIVE`) | [한국어](cj-oliveyoung-breach/README.md) · [English](cj-oliveyoung-breach/README_en.md) |
 | 다나와 서비스 전면 중단 (2026-11-26) | 외부 침해 추정 사고로 웹·앱 15시간+ 중단, 확인·미확인 구분과 이용자·운영팀 체크리스트 (키워드 `DANAWA`) | [한국어](danawa-service-outage/README.md) · [English](danawa-service-outage/README_en.md) |
 | 국내 연쇄 해킹 4건 (2026-11-28) | 인터넷우체국 하루치 11만 3,855명·다나와 유출 인정·이나인페이 90여 회 25억 원·과기공제회 21만 건 16종, 조회 API 인가·출금 통제·사칭 대응 체크리스트 (키워드 `DOMINO`) | [한국어](kr-breach-domino-2026-11-28/README.md) · [English](kr-breach-domino-2026-11-28/README_en.md) |
+| 한전 '저장은 암호문, 유출은 평문' (2026-11-28) | 한전ON 12개 항목 65만 487명·전자조달 대표자 주민번호 42만 6,827건이 암호키 유출 없이 복호화된 평문으로 유출, 저장 시 암호화(Encryption at Rest)만으로 못 막는 앱·API 복호화 계층, 응답 최소화·객체 인가·복호화 흐름 위협 모델링 체크리스트 3종 (키워드 `PLAIN`) | [한국어](kepco-plaintext-exfiltration/README.md) · [English](kepco-plaintext-exfiltration/README_en.md) |
 | 2026년 11월 국내 유출 정리 | 금융권 37곳·한전·삼성증권·KICC·CJ올리브영·다나와·수협은행·호텔스토리 등, 한전 유출본 유통 현황·외부 접점 체크리스트 | [한국어](korea-breach-tracker-2026-11/README.md) · [English](korea-breach-tracker-2026-11/README_en.md) |
 | 증권사 API 방어 룰북 | RFC 8693 인증변환, Redis HLL 레이트리밋, MyBatis `${}` 차단 | [한국어](securities-api-defense/README.md) · [English](securities-api-defense/README_en.md) |
 | 가상자산 거래소 연쇄 침해 | 빗썸 15일 침입, 그룹웨어·외주·핫월렛 | [한국어](crypto-exchange-breaches/README.md) · [English](crypto-exchange-breaches/README_en.md) |
