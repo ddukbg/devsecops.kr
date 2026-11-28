@@ -50,7 +50,7 @@
 | --- | --- | --- | --- |
 | Traefik Ingress NGINX mTLS 헤더 우회 (CVE-2026-137480) | 클라이언트 인증은 host 단위인데 `Ssl-Client-*` 헤더는 Ingress 단위로 계산 — `optional_no_ca` 이웃을 거쳐 `Ssl-Client-Verify: SUCCESS` 위조, 3.7.18·3.8.0-rc.2 | `MTLS` | [KR](traefik-mtls-cve-2026-137480/README.md) · [EN](traefik-mtls-cve-2026-137480/README_en.md) |
 | Traefik 세미콜론 경로 인증 우회 (CVE-2026-137481) | `sanitizePath`가 남긴 `/..;x/`로 공개·보호 라우터가 같은 Java 백엔드를 공유하면 인증 미들웨어 우회, 2.11.62·3.7.18 | `TRAEFIK` | [KR](traefik-cve-2026-137481-gh-cli/README.md) · [EN](traefik-cve-2026-137481-gh-cli/README_en.md) |
-| Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `?x=/namespaces/<ns>/` decoy가 검증을 통과하고 실행기는 `?` 뒤를 버려 클러스터 전역 자원과 타 네임스페이스 Secret 열람, 1.19.2 | `KYVERNO` | [KR](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [EN](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) |
+| Kyverno apiCall URL 파서 불일치 (GHSA-pcx2-xcq4-65vf) | `?x=/namespaces/{ns}/` decoy가 검증을 통과하고 실행기는 `?` 뒤를 버려 클러스터 전역 자원과 타 네임스페이스 Secret 열람, 1.19.2 | `KYVERNO` | [KR](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README.md) · [EN](kyverno-url-parser-ghsa-pcx2-xcq4-65vf/README_en.md) |
 | AWS SSM Agent (CVE-2026-134069) | 2026-09-09 이전 AWS Windows AMI가 같은 SSM 등록 키를 공유, DHMC Role 자격증명 탈취, 인플레이스 패치 무효 | `SSM` | [KR](aws-ssm-agent-cve-2026-134069/README.md) · [EN](aws-ssm-agent-cve-2026-134069/README_en.md) |
 | NFS2ROOT (CVE-2026-99362) | 리눅스 커널 `nfsd` 무인증 원격 루트 — AWS·EKS 해당 여부 판별과 고정 커널 버전 | `NFS` | [KR](cve-2026-99362-nfs2root/README.md) · [EN](cve-2026-99362-nfs2root/README_en.md) |
 | Java4Shell · NGINX2Shell | OpenJDK AVX-512 VBMI RCE와 NGINX HTTP/2 RCE — CPU 명령어 집합과 프록시 설정이라는 발동 조건부터 확인 | `JAVA` | [KR](java4shell-nginx2shell/README.md) · [EN](java4shell-nginx2shell/README_en.md) |
